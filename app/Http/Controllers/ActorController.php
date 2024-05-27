@@ -28,14 +28,17 @@ class ActorController extends Controller
         return redirect()->route('actorIndex');
     }
 
-    public function edit($actorId)
+    public function edit(Actor $actorId)
     {
-        $actor = Actor::find($actorId);
-        return response()->json($actor);
+        return response()->json($actorId);
     }
     
-    public function update(){
-
+    public function update(Request $request, Actor $actorId)
+    {
+        $actorId->update([
+            'name' => $request->name,
+            'dateBirth' => $request->dateBirth
+        ]);
     }
 
     public function destroy(){
