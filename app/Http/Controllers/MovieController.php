@@ -12,6 +12,12 @@ class MovieController extends Controller
         $movies = Movie::all();
         return view('movies.index', ['movies' => $movies]);
     }
+
+    public function allMovies()
+    {
+        $movies = Movie::all();
+        return response($movies);
+    }
     
     public function create()
     {
@@ -30,6 +36,7 @@ class MovieController extends Controller
         return redirect()->route('movieIndex');
 
     }
+
 
     public function edit(){
 

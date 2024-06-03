@@ -10,21 +10,25 @@ Route::prefix('/configuracion')->group(function(){
             Route::get('/listar', 'index')->name('actorIndex');
 
             Route::get('/alta', 'create')->name('actorCreate');
+            Route::post('/create/{actorID}/{movieId}', 'storeMoviesActor')->name('storeMoviesActor');
             Route::post('/create', 'store')->name('actorStore');
 
             Route::get('/modificar/{actorId}', 'edit')->name('actorEdit');
             Route::put('/modificar/{actorId}', 'update')->name('actorUpdate');
 
             Route::delete('/baja/{actorId}', 'destroy')->name('actorDestroy');
+            Route::delete('/baja/movie/{actorMovieId}', 'deleteMovie')->name('deleteMovieActor');
         });
     });
 
     Route::prefix('/movies')->group(function(){
         Route::controller(MovieController::class)->group(function(){
             Route::get('/listar', 'index')->name('movieIndex');
+            Route::get('/all', 'allMovies')->name('movieAll');
 
             Route::get('/alta', 'create')->name('movieCreate');
             Route::post('/create', 'store')->name('movieStore');
+
 
             Route::get('/modificar/{movieId}', 'edit')->name('movieEdit');
             Route::put('/modificar/{movieId}', 'update')->name('movieUpdate');
