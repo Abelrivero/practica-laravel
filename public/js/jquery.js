@@ -62,13 +62,18 @@ function guardar(){
         },
         success: function(){
             alert('modificado');
+        },
+        error: function (res) {
+            $('#name').addClass('border border-danger');
+            $('.errors').html('<p style=color:red;>'+res.responseJSON.message+'</p>');
+            console.log(res.responseJSON.message);   
         }
-    }).fail(function(res){
+    })/* .fail(function(res){
         alert('error ' + res.status)
-    });
-    $(function() {
+    }) */;
+    /* $(function() {
         location.reload();
-    });
+    }); */
     
 }
 

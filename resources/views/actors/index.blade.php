@@ -22,6 +22,11 @@
 @component('componentes.modal')
     @slot('modalTitle' , 'Editar Actor')
     @slot('modalBody')
+    <div>
+        <ul class="errors" style="margin:0%; padding:0%;">
+
+        </ul>
+    </div>
     @if ($errors->any())
         <ul>
             @foreach ($errors->all() as $error)
@@ -34,15 +39,11 @@
             @csrf
             <label for="name">Nombre</label>
             <input type="text" id="name" name="name">
-            @error('name')
-                <p style="color:red">{{$message}}</p>
-            @enderror
+            
             <br>
             <label for="dateBirth">Fecha de Nacimiento</label>
             <input type="date" id="dateBirth" name="dateBirth">
-            @error('dateBirth')
-                <p style="color:red">{{$message}}</p>
-            @enderror
+            
             <br>
             <label for="selectMovies">Peliculas</label>
             <select name="state" id="selectMovies" style="width: 50%">
@@ -64,7 +65,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="reload()">Cerrar</button>
     @endslot
     @slot('saveEdit')
-        <button type="button" id="btn-edit" class="btn btn-primary" onclick="guardar()" data-bs-dismiss="modal">Editar Actor</button>
+        <button type="button" id="btn-edit" class="btn btn-primary" onclick="guardar()" {{-- data-bs-dismiss="modal" --}}>Editar Actor</button>
     @endslot
 @endcomponent
 
