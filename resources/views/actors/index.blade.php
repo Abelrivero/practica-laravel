@@ -22,10 +22,7 @@
 @component('componentes.modal')
     @slot('modalTitle' , 'Editar Actor')
     @slot('modalBody')
-    <div>
-        <ul class="errors" style="margin:0%; padding:0%;">
-
-        </ul>
+    <div class="errors" style="margin:0%; padding:0%;">
     </div>
     @if ($errors->any())
         <ul>
