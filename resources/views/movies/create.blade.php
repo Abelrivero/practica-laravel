@@ -11,7 +11,7 @@
         <input type="date" id="year" name="year">
 
         <label for="duration">duracion</label>
-        <input type="text" id="duration" name="duration">
+        <input type="number" id="duration" name="duration">
 
         <label for="synopsis">Sinopsis</label>
         <input type="text" id="synopsis" name="synopsis">
