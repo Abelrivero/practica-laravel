@@ -8,11 +8,30 @@ $(function() {
     $('#selectMovies').on("select2:select", function (e) {
         guardarMovie(e.params.data.element.id);
     });
+
+    /* let rutaindex = $(location).attr('href');
+    $.ajax({
+        type: 'GET',
+        url: rutaindex,
+        data: 'data',
+        success: function(response){
+            let links = response[0].links;
+            links.map(function(item){
+                if(item.url == null){
+                    $('.pagination').append('<li class="page-item"><a class="page-link" href="'+rutaindex+'">'+item.label+'</a></li>');
+                }else{
+                    $('.pagination').append('<li class="page-item"><a class="page-link" href="'+item.url+'">'+item.label+'</a></li>');
+                }
+            })
+        },
+        error: function (res){
+            console.log('Error '+res.status);
+        }
+    }); */
 });
 
 
 let idActor;
-/* let moviesActor = []; */
 let movies = [];
 
 function edit(id){
@@ -117,3 +136,42 @@ function reload(){
         location.reload();
     });
 }
+
+$("#searchActor").on('keyup',debounce(function(){
+        let buscado = $(this).val();
+        let ruta = '/configuracion/actores/buscar/show';
+        if(buscado.length >= 3){
+            $.ajax({
+                type: 'GET',
+                url:   '/configuracion/actores/listar',
+                data: {name: buscado},
+                success: function(response){
+                    $('#tBodyActor').empty();
+                    $('.pagination').empty();
+                    response.map(function(element){
+                        $('#tBodyActor').append('<tr><td>'+element.id+'</td><td>'+element.name+'</td><td><input type="hidden" value="http://127.0.0.1:8000/configuracion/actores/modificar/'+element.id+'" id="url'+element.id+
+                            '"><button class="d-inline m-2 btn btn-primary" data-bs-target="#componenteModal" data-bs-toggle="modal" onclick="edit('+element.id+')">Editar</button><button class="d-inline m-2 btn btn-primary">Elimnar</button></td></tr>');
+                    })
+                    console.log(response);
+                },
+                error: function(res){
+                    console.log('Error '+res.status);
+                }
+            })
+        }
+    }, 500)
+)
+
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        const context = this;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+}
+
+
+
+
+

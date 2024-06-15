@@ -19,7 +19,7 @@ class EditMovie extends Component
     public $year;
     public $duration;
     public $synopsis;
-
+    
     protected $listeners = ['edit', 'guardarActorMovie', 'eliminarActorMovie'];
 
     public function edit($id)

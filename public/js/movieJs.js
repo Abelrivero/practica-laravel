@@ -49,6 +49,15 @@ document.addEventListener('livewire:load', function () {
             location.reload();
         })
     })
+    Livewire.on('movieEncontrada', function(movies){
+        if (movies && movies.length > 0) {
+            console.log(movies);
+            $('#tBodyMovie').empty();
+            movies.forEach(element => {
+                $('#tBodyMovie').append('<tr><td>'+element.id+'</td><td>'+element.title+'</td><td><button class="d-inline m-2 btn btn-primary" onclick="editar('+element.id+')">Editar</button><button class="d-inline m-2 btn btn-primary">Eliminar</button></td></tr>');
+            });
+        }
+    })
 });
 
 $('#selectActor').on("select2:select", function (e) {

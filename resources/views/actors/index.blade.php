@@ -1,22 +1,49 @@
 @extends('layouts.layouts')
 
 @section('content')
-    <a href="{{route('actorCreate')}}">Crear</a>
-    <h1>acotres</h1>
-    <ul>
-        @foreach ($actors as $actor)
-            <li>{{$actor->name}}
-            <input type="hidden" value="{{route('actorEdit', $actor->id) }}" id="url{{$actor->id}}">
-            <button onclick="edit({{$actor->id}})" data-bs-toggle="modal" data-bs-target="#componenteModal" class="btn btn-primary">Editar</button>
-            <form action="{{route('actorDestroy', $actor->id)}}" method="POST">
-                @csrf
-                @method('DELETE')
-                <input type="submit" value="Eliminar" class="btn btn-primary">
-            </form>
-            </li>
-        @endforeach
-    </ul>
+    <div class="d-flex flex-column">
+        <div class="d-flex justify-content-center">
+            <h1 class="mt-4 mb-3">ACTORES</h1>
+        </div>
+        <div class="d-flex justify-content-center">
+            {{ $actors->links()}}
+        </div>
+    </div>
+    <div class="d-flex justify-content-end mb-2">
+        <input type="text" class="form-control me-5 ms-3" id="searchActor" name="searchActor" placeholder="Buscar Actor">
+        <a href="{{route('actorCreate')}}" class="btn btn-success me-3" role="button">Crear</a>
+    </div>
+
     
+    <div class="conteiner m-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Nombre</td>
+                    <td colspan="2">Acciones</td>
+                </tr>
+            </thead>
+            <tbody id="tBodyActor">
+                @foreach ($actors as $actor)
+                <tr>
+                    <td>{{$actor->id}}</td>
+                    <td>{{$actor->name}}</td>
+                    <td class="d-flex align-items-start">
+                        <input type="hidden" value="{{route('actorEdit', $actor->id) }}" id="url{{$actor->id}}">
+                        <button onclick="edit({{$actor->id}})" data-bs-toggle="modal" data-bs-target="#componenteModal" class="d-inline m-2 btn btn-primary">Editar</button> 
+                        <form action="{{route('actorDestroy', $actor->id)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="submit" value="Eliminar" class="d-inline m-2 btn btn-primary">
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    {{ $actors->links()}}
 @endsection
 
 @component('componentes.modal')

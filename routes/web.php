@@ -10,6 +10,7 @@ Route::prefix('/configuracion')->group(function(){
             Route::get('/listar', 'index')->name('actorIndex');
 
             Route::get('/alta', 'create')->name('actorCreate');
+            Route::get('/buscar/show', 'show')->name('actorShow');
             Route::post('/create/{actorID}/{movieId}', 'storeMoviesActor')->name('storeMoviesActor');
             Route::post('/create', 'store')->name('actorStore');
 

@@ -10,10 +10,26 @@ use App\Http\Requests\ActorRequest;
 
 class ActorController extends Controller
 {
-    public function index()
+
+    
+    public function index(Request $request)
     {
-        $actors = Actor::all();
+        $actorPag = 10;
+        $actors = Actor::paginate($actorPag);
+        if ($request->ajax()) {
+            $nameActor = $request->input('name');
+            $actors = Actor::where('name','like','%'.$nameActor.'%')->get();
+            return $actors;
+        };
+        
         return view('actors.index', ['actors' => $actors]);
+    }
+
+    public function show(Request $request)
+    {
+        $nameActor = $request->input('name');
+        $actor = Actor::where('name','like','%'.$nameActor.'%')->get();
+        return response([$actor]);       
     }
     
     public function create()
