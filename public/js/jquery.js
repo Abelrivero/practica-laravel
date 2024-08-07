@@ -33,6 +33,7 @@ $(function() {
 
 let idActor;
 let movies = [];
+let listMoviesActor = [];
 
 function edit(id){
     let ruta = document.getElementById('url'+id).getAttribute('value');
@@ -51,18 +52,33 @@ function edit(id){
             response[2].map(function(element){
                 $('#selectMovies').append('<option id="'+element.id+'">'+element.title+'</option>')
             })
+            listMovies(idActor);
+        }
+    }).fail(function(res){
+        alert('error ' + res.status);
+    });
+}
+
+function listMovies(id){
+    let ruta = document.getElementById('url'+id).getAttribute('value');
+    $.ajax({
+        type: 'GET',
+        url: ruta,
+        data: 'data',
+        success: function(response){  
+            moviesActor = response[0].movies;
             $("#listaMovies").empty();
             moviesActor.map(function (element) {
                 $("#listaMovies").append('<li>'+element.peliculas_actor.title+' '+'<a style="color:red;cursor:pointer" id="eliminar'+element.id+'">X</a>'+'</li>')
                 $("#eliminar"+element.id).on('click', function(){
                     eliminarMovieActor(element.id);
                 })
-            });;
-            
+            });
         }
     }).fail(function(res){
         alert('error ' + res.status);
     });
+   
 }
 
 function guardar(){
@@ -107,12 +123,12 @@ function guardarMovie(movieID){
         },
         success: function(){
             alert('Pelicula Agregada');              
-
         }
     }).fail(function (res) {
-        alert('Error '+res.status)
+        console.log(res);
+        alert(res.responseText)
     });
-    edit(idActor)  
+    listMovies(idActor);
 }
 
 function eliminarMovieActor(id){
@@ -128,7 +144,7 @@ function eliminarMovieActor(id){
     }).fail(function(res){
         alert('error '+res.status);
     });
-    edit(idActor)
+    listMovies(idActor);
 }
 
 function reload(){
@@ -171,6 +187,7 @@ function debounce(func, wait) {
     };
 }
 
+// TODO: al eliminar o agregar un pelicula dentro de editar actor no debe modificar los input
 
 
 

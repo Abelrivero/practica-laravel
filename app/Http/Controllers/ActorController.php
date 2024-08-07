@@ -62,10 +62,17 @@ class ActorController extends Controller
 
     public function storeMoviesActor(Request $request)
     {
-        $MoviesActor = new Actor_Movie();
-        $MoviesActor->actor_id = $request->actor_id;
-        $MoviesActor->movie_id = $request->movie_id;
-        $MoviesActor->save();
+        $existMovieActor = Actor_Movie::where('movie_id', $request->movie_id)->where('actor_id', $request->actor_id)->first();
+        /* dd($existMovieActor); */
+        if(!$existMovieActor){
+            $MoviesActor = new Actor_Movie();
+            $MoviesActor->actor_id = $request->actor_id;
+            $MoviesActor->movie_id = $request->movie_id;
+            $MoviesActor->save();
+            /* return response('Pelicula Agregado', 200); */
+        }else{
+            return response('El Actor ya pertenece a esta pelicula', 400);
+        }
     }
     
     public function update(ActorRequest $request, Actor $actorId)
@@ -82,7 +89,7 @@ class ActorController extends Controller
         $movieActor->delete();
     }
 
-    public function destroy(Request $request,Actor $actorId) 
+    public function destroy(Actor $actorId) 
     {
         $actorId->delete();
         return redirect()->route('actorIndex');
