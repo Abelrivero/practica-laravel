@@ -9,11 +9,14 @@
             {{ $movies->links()}}
         </div>
     </div>
-    <div class="conteiner m-4 d-flex">
-        <div style="width:80%;margin-right:10%;">
+    <div class="row">
+        <div class="col-6 ms-3">
             @livewire('search-movie')
         </div>
-        <div class="d-flex justify-content-end mb-2">
+        <div class="col-2">
+            <a href="{{route('movieCreatePDF')}}" class="btn btn-info me-3 end-0 text-sm" role="button">Crear PDF</a>
+        </div>
+        <div class="col-3">
             <a href="{{route('movieCreate')}}" class="btn btn-success me-3 end-0" role="button">Crear</a>
         </div>
     </div>

@@ -26,6 +26,7 @@ Route::prefix('/configuracion')->group(function(){
         Route::controller(MovieController::class)->group(function(){
             Route::get('/listar', 'index')->name('movieIndex');
             Route::get('/all', 'allMovies')->name('movieAll');
+            Route::get('/all/pdf', 'createPDF')->name('movieCreatePDF');
 
             Route::get('/alta', 'create')->name('movieCreate');
             Route::post('/create', 'store')->name('movieStore');
