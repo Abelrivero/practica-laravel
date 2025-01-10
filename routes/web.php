@@ -11,6 +11,7 @@ Route::prefix('/configuracion')->group(function(){
 
             Route::get('/alta', 'create')->name('actorCreate');
             Route::get('/buscar/show', 'show')->name('actorShow');
+            Route::get('/create/excel', 'creatExcel')->name('creatExcel');
             Route::post('/create/{actorID}/{movieId}', 'storeMoviesActor')->name('storeMoviesActor');
             Route::post('/create', 'store')->name('actorStore');
 

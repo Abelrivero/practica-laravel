@@ -28,6 +28,7 @@ class EditMovie extends Component
         $this->actorMovie = $movie->actores;
         $this->actores = [];
         $this->idsActores = [];
+        //$this->idsActores = $this->actorMovie->pluck('id');
         $this->actoresFaltantes = [];
         foreach ($this->actorMovie as  $actor) {
             $this->actores[] =  $actor->cast;

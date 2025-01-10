@@ -11,6 +11,7 @@
     </div>
     <div class="d-flex justify-content-end mb-2">
         <input type="text" class="form-control me-5 ms-3" id="searchActor" name="searchActor" placeholder="Buscar Actor">
+        <a href="{{route('creatExcel')}}" class="btn btn-info me-3" role="button">Excel</a>
         <a href="{{route('actorCreate')}}" class="btn btn-success me-3" role="button">Crear</a>
     </div>
 
@@ -42,8 +43,10 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="d-flex justify-content-center">
+            {{ $actors->links()}}
+        </div>
     </div>
-    {{ $actors->links()}}
 @endsection
 
 @component('componentes.modal')

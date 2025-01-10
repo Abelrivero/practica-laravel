@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ActorExport;
 use App\Models\Actor;
 use App\Models\Actor_Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ActorRequest;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ActorController extends Controller
 {
@@ -93,5 +95,10 @@ class ActorController extends Controller
     {
         $actorId->delete();
         return redirect()->route('actorIndex');
+    }
+
+    public function creatExcel()
+    {
+        return Excel::download(new ActorExport, 'Actores.xlsx');
     }
 }
